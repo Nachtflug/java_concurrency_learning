@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
+import java.util.stream.Collectors;
 
 public class CyclicBarrierMatrixSearch {
 
@@ -18,13 +19,13 @@ public class CyclicBarrierMatrixSearch {
 
             data = new int[size][length];
             Random r = new Random();
-            IterableUtils.genIdxList(0, size).forEach(i ->
-                    IterableUtils.genIdxList(0, length).forEach(j ->
-                            data[i][j] = r.nextInt(10)));
+            Arrays.setAll(data, i -> Arrays.stream(data[i])
+                    .map(v -> r.nextInt(100))
+                    .toArray());
             long count = Arrays.stream(data).flatMapToInt(Arrays::stream)
                     .filter(d -> d == number)
                     .count();
-            System.out.printf("Mock: There are %d ocurrences of number in generated data.\n", count, number);
+            System.out.printf("Mock: There are %d ocurrences of %d in generated data.\n", count, number);
         }
 
         public int[] getRow(int row) {

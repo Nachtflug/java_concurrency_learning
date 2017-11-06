@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;
 import util.IterableUtils;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -88,8 +89,7 @@ public class ForkJoinPoolCancel {
         Function<Integer, int[]> f = size -> {
             int[] ret = new int[size];
             Random r = new Random();
-            IterableUtils.genIdxList(0, size)
-                    .forEach(i -> ret[i] = r.nextInt(500));
+            Arrays.setAll(ret, i -> r.nextInt(500));
             return ret;
         };
         int[] arr =  f.apply(1000);
