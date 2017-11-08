@@ -7,7 +7,6 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
-import java.util.stream.Collectors;
 
 public class CyclicBarrierMatrixSearch {
 

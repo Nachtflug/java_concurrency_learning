@@ -63,9 +63,9 @@ public class SemaphorePrintQueueMulti {
         PrintQueue queue = new PrintQueue();
         IterableUtils.genIdxList(0, 10).stream()
                 .map(idx -> new Thread(() -> {
-                    System.out.printf("%s: Goning to print a job\n", Thread.currentThread().getName());
+                    System.out.printf("%s: Going to print a job\n", Thread.currentThread().getName());
                     queue.printJob(new Object());
-                    System.out.printf("%s: The documnet has been printed\n", Thread.currentThread().getName());
+                    System.out.printf("%s: The document has been printed\n", Thread.currentThread().getName());
                 }, "Thread " + idx))
                 .forEach(Thread::start);
     }
