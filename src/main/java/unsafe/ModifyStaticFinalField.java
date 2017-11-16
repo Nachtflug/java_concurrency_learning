@@ -14,16 +14,16 @@ public class ModifyStaticFinalField {
 
         //System.out.println(a);
 
-        Field field = ModifyStaticFinalField.class.getDeclaredField("a");
+        Class<ModifyStaticFinalField> o = ModifyStaticFinalField.class;
+        Field field = o.getDeclaredField("a");
         Unsafe u = UnsafeUtils.get();
         long offset = u.staticFieldOffset(field);
         Object base = u.staticFieldBase(field);
         System.out.printf("base: %s, offset: %d\n", base, offset);
-        System.out.println(u.getInt(ModifyStaticFinalField.class, offset));
+        System.out.println(u.getInt(o, offset));
         u.putInt(base, offset, 15);
         System.out.println(a);
-        System.out.println(u.getInt(ModifyStaticFinalField.class, offset));
-
+        System.out.println(u.getInt(o, offset));
 
     }
 
