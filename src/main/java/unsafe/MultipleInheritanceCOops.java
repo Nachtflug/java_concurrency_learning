@@ -5,7 +5,7 @@ import sun.misc.Unsafe;
 import static util.UnsafeUtils.get;
 import static util.UnsafeUtils.normalize;
 
-public class MultipleInheritanceCOOPs {
+public class MultipleInheritanceCOops {
 
     public static void main(String[] args) {
 

@@ -7,7 +7,7 @@ import static util.UnsafeUtils.get;
 public class MultipleInheritance {
 
     public static void main(String[] args) {
-
+        //turn off compressOops -XX:-UseCompressedOops
         cheat();
         Object nerdString = 666;
         System.out.println(nerdString instanceof String); //just kidding
