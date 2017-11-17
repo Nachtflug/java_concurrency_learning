@@ -14,6 +14,7 @@ public class CAS {
 
     interface Counter {
         void increment();
+
         long getCount();
     }
 
