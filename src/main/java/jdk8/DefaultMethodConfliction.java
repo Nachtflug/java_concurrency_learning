@@ -1,6 +1,6 @@
 package jdk8;
 
-public class DefaultMethodConflicts {
+public class DefaultMethodConfliction {
 
     interface A {
         default String laugh() {
