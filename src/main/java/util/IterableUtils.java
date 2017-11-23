@@ -1,49 +1,37 @@
 package util;
 
-import com.google.common.collect.Lists;
-
 import java.util.Iterator;
-import java.util.List;
+import java.util.function.Supplier;
+import java.util.stream.Stream;
 
 public class IterableUtils {
 
-    @FunctionalInterface
-    public interface HasNext {
-        boolean hasNext();
-    }
-
-    @FunctionalInterface
-    public interface Next<T> {
-        T next();
-    }
 
 
-    public static <T> Iterable<T> newIter(HasNext judger, Next<T> succeeder) {
+    public static <T> Iterable<T> newIter(Supplier<Boolean> judger, Supplier<T> succeeder) {
         return () -> new Iterator<T>() {
             @Override
             public boolean hasNext() {
-                return judger.hasNext();
+                return judger.get();
             }
 
             @Override
             public T next() {
-                return succeeder.next();
+                return succeeder.get();
             }
         };
     }
 
-    public static List<Integer> genIdxList(int start, int end) {
+    public static Stream<Integer> genIdxList(int start, int end) {
         int step = start > end ? -1 : 1;
         return genIdxList(start, end, step);
 
     }
 
-    public static List<Integer> genIdxList(int start, int end, int step) {
-        List<Integer> ls = Lists.newArrayList();
-        for (; step > 0 ^ start >= end; start += step) {
-            ls.add(start);
-        }
-        return ls;
+    public static Stream<Integer> genIdxList(int start, int end, int step) {
+        return Stream
+                .iterate(start, i -> i + step)
+                .limit(Math.abs((end -start) / step));
     }
 
 }

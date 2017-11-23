@@ -25,7 +25,7 @@ public class SkipListMap {
 
         @Override
         public void run() {
-            IterableUtils.genIdxList(0, 100).stream()
+            IterableUtils.genIdxList(0, 100)
                     .map(i -> new Contact(id, (i + 1000) + ""))
                     .forEach(c -> map.put(id + c.getPhone(), c));
         }
@@ -33,7 +33,7 @@ public class SkipListMap {
 
     public static void main(String[] args) {
         ConcurrentSkipListMap<String, Contact> map = new ConcurrentSkipListMap<>();
-        List<Thread> threads = IterableUtils.genIdxList('A', 'Z').stream()
+        List<Thread> threads = IterableUtils.genIdxList('A', 'Z')
                 .map(c -> new Task(String.valueOf((char) c.byteValue()), map))
                 .map(Thread::new)
                 .collect(Collectors.toList());

@@ -55,7 +55,7 @@ public class DelayQ {
 
     public static void main(String[] args) throws InterruptedException {
         DelayQueue<Event> queue = new DelayQueue<>();
-        List<Thread> threads = IterableUtils.genIdxList(0, 5).stream()
+        List<Thread> threads = IterableUtils.genIdxList(0, 5)
                 .map(idx -> new Task(idx + 1, queue))
                 .map(Thread::new)
                 .collect(Collectors.toList());

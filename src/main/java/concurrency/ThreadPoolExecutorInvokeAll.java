@@ -37,7 +37,7 @@ public class ThreadPoolExecutorInvokeAll {
 
     public static void main(String[] args) throws InterruptedException {
         ExecutorService executors = Executors.newCachedThreadPool();
-        List<Task> tasks = IterableUtils.genIdxList(0, 3).stream()
+        List<Task> tasks = IterableUtils.genIdxList(0, 3)
                 .map(i -> new Task(i + ""))
                 .collect(Collectors.toList());
 

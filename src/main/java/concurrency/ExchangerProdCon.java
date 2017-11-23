@@ -12,7 +12,7 @@ public class ExchangerProdCon {
 
         Thread producer = new Thread(() -> IterableUtils.genIdxList(0, 10).forEach(idx -> {
             System.out.printf("Producer: Cycle %d\n", idx + 1);
-            Stream<String> buffer = IterableUtils.genIdxList(0, 10).stream()
+            Stream<String> buffer = IterableUtils.genIdxList(0, 10)
                     .map(j -> "Event" + (idx * 10 + j));
             try {
                 exchanger.exchange(buffer);

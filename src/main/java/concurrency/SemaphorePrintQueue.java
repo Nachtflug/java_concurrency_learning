@@ -32,7 +32,7 @@ public class SemaphorePrintQueue {
 
     public static void main(String[] args) {
         PrintQueue queue = new PrintQueue();
-        IterableUtils.genIdxList(0, 10).stream()
+        IterableUtils.genIdxList(0, 10)
                 .map(idx -> new Thread(() -> {
                     System.out.printf("%s: Goning to print a job\n", Thread.currentThread().getName());
                     queue.printJob(new Object());

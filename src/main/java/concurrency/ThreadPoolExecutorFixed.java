@@ -57,7 +57,7 @@ public class ThreadPoolExecutorFixed {
 
     public static void main(String[] args) {
         Server server = new Server();
-        IterableUtils.genIdxList(0, 100).stream()
+        IterableUtils.genIdxList(0, 100)
                 .map(i -> "Task " + i)
                 .map(Task::new)
                 .forEach(server::execute);

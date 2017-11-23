@@ -88,7 +88,7 @@ public class PhaserCustomize {
 
     public static void main(String[] args) {
         Phaser phaser = new MyPhaser();
-        List<Thread> threads = IterableUtils.genIdxList(0, 5).stream()
+        List<Thread> threads = IterableUtils.genIdxList(0, 5)
                 .map(idx -> T2.of(new Student(phaser), idx))
                 .map(t -> new Thread(t._1(), "student " + t._2()))
                 .collect(Collectors.toList());

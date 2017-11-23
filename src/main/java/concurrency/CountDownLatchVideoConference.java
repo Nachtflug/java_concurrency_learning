@@ -40,7 +40,7 @@ public class CountDownLatchVideoConference {
         int numberCount = 10;
         VideoConference conference = new VideoConference(numberCount);
         new Thread(conference).start();
-        IterableUtils.genIdxList(0, 10).stream()
+        IterableUtils.genIdxList(0, 10)
                 .map(idx -> new Thread(() -> {
                     long duration = (long) (Math.random() * 10);
                     try {

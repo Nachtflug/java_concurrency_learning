@@ -62,7 +62,7 @@ public class CyclicBarrierMatrixSearch {
             int finalRslt = Arrays.stream(rs.getData()).sum();
             System.out.printf("Grouper: Total result: %d.\n", finalRslt);
         });
-        IterableUtils.genIdxList(0, PARTICIPANTS).stream()
+        IterableUtils.genIdxList(0, PARTICIPANTS)
                 .map(idx -> (Runnable) () -> {
                     int firstRow = idx * LINES_PARTICIPANT;
                     int lastRow = firstRow + LINES_PARTICIPANT;

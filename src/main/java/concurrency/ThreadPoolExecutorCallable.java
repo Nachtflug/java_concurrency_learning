@@ -21,7 +21,7 @@ public class ThreadPoolExecutorCallable {
             System.out.printf("Task: %d\n", number);
             if (number <= 1)
                 return 1;
-            return IterableUtils.genIdxList(2, number + 1).stream()
+            return IterableUtils.genIdxList(2, number + 1)
                     .reduce(1, (x, y) -> x * y);
         }
     }

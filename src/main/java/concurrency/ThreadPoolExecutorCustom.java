@@ -77,7 +77,7 @@ public class ThreadPoolExecutorCustom {
 
         myExecutor.shutdown();
 //        List<Runnable> unfinished = myExecutor.shutdownNow();
-        IterableUtils.genIdxList(0, results.size()).stream()
+        IterableUtils.genIdxList(0, results.size())
                 .map(i -> T2.of(i, results.get(i)))
                 .map(t -> t.map2(future -> {
                     try {

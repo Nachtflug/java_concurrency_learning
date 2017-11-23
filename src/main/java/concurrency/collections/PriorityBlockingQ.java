@@ -28,7 +28,7 @@ public class PriorityBlockingQ {
 
         @Override
         public void run() {
-            IterableUtils.genIdxList(0, 1000).stream()
+            IterableUtils.genIdxList(0, 1000)
                     .map(idx -> new Event(id, idx))
                     .forEach(queue::add);
         }
@@ -36,7 +36,7 @@ public class PriorityBlockingQ {
 
     public static void main(String[] args) {
         java.util.concurrent.PriorityBlockingQueue<Event> queue = new java.util.concurrent.PriorityBlockingQueue<>();
-        List<Thread> threads = IterableUtils.genIdxList(0, 5).stream()
+        List<Thread> threads = IterableUtils.genIdxList(0, 5)
                 .map(idx -> new Task(idx, queue))
                 .map(Thread::new)
                 .collect(Collectors.toList());

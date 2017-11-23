@@ -45,7 +45,7 @@ public class SemaphorePrintQueueMulti {
         private int getPrinter() {
             try {
                 lockPrinters.lock();
-                Optional<Integer> retMaybe = IterableUtils.genIdxList(0, RESOURCE_COUNT).stream()
+                Optional<Integer> retMaybe = IterableUtils.genIdxList(0, RESOURCE_COUNT)
                         .filter(i -> freePrinters[i])
                         .findAny();
                 retMaybe.ifPresent(i -> freePrinters[i] = false);
@@ -61,7 +61,7 @@ public class SemaphorePrintQueueMulti {
 
     public static void main(String[] args) {
         PrintQueue queue = new PrintQueue();
-        IterableUtils.genIdxList(0, 10).stream()
+        IterableUtils.genIdxList(0, 10)
                 .map(idx -> new Thread(() -> {
                     System.out.printf("%s: Going to print a job\n", Thread.currentThread().getName());
                     queue.printJob(new Object());

@@ -35,11 +35,11 @@ public class ThreadPoolExecutorCustomPriority {
     public static void main(String[] args) throws InterruptedException {
         ThreadPoolExecutor executor = new ThreadPoolExecutor(2, 2, 1, TimeUnit.SECONDS
                             , new PriorityBlockingQueue<>());
-        IterableUtils.genIdxList(0, 4).stream()
+        IterableUtils.genIdxList(0, 4)
                 .map(i -> new MyPriorityTask(i, "Task " + i))
                 .forEach(executor::execute);
         TimeUnit.SECONDS.sleep(1);
-        IterableUtils.genIdxList(4, 8).stream()
+        IterableUtils.genIdxList(4, 8)
                 .map(i -> new MyPriorityTask(i, "Task " + i))
                 .forEach(executor::execute);
         executor.shutdown();

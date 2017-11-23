@@ -49,7 +49,7 @@ public class ThreadPoolExecutorFutureTask {
     public static void main(String[] args) throws InterruptedException {
 
         ExecutorService executor = Executors.newCachedThreadPool();
-        List<ResultTask> rsltTask = IterableUtils.genIdxList(0, 5).stream()
+        List<ResultTask> rsltTask = IterableUtils.genIdxList(0, 5)
                 .map(i -> "Task " + i)
                 .map(ExecutableTask::new)
                 .map(ResultTask::new)

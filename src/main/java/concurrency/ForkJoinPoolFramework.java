@@ -21,7 +21,7 @@ public class ForkJoinPoolFramework {
 
     static class ProductListGenerator {
         public List<Product> generate(int size) {
-            return IterableUtils.genIdxList(0, size).stream()
+            return IterableUtils.genIdxList(0, size)
                     .map(i -> new Product("Product " + i, 10))
                     .collect(Collectors.toList());
         }

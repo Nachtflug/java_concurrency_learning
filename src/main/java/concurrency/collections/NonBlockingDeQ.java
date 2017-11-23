@@ -18,7 +18,7 @@ public class NonBlockingDeQ {
         @Override
         public void run() {
             String name = Thread.currentThread().getName();
-            IterableUtils.genIdxList(0, 10000).stream()
+            IterableUtils.genIdxList(0, 10000)
                     .map(idx -> name + ": Element " + idx)
                     .forEach(list::add);
         }

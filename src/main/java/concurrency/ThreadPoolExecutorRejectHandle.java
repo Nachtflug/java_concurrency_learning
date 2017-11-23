@@ -52,7 +52,7 @@ public class ThreadPoolExecutorRejectHandle {
         ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
         executor.setRejectedExecutionHandler(controller);
         System.out.printf("Main: Starting\n");
-        IterableUtils.genIdxList(0, 3).stream()
+        IterableUtils.genIdxList(0, 3)
                 .map(i -> new Task("Task " + i))
                 .forEach(executor::submit);
         System.out.printf("Main: Shutting down the executor\n");

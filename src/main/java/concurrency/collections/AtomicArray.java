@@ -36,7 +36,7 @@ public class AtomicArray {
                 e.printStackTrace();
             }
         });
-        IterableUtils.genIdxList(0, array.length()).stream()
+        IterableUtils.genIdxList(0, array.length())
                 .map(array::get)
                 .forEach(System.out::println);
 

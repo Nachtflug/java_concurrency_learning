@@ -16,7 +16,7 @@ public class ThreadPoolExecutorScheduled {
                 (ScheduledThreadPoolExecutor) Executors.newScheduledThreadPool(1);
 
         System.out.printf("Main: Starting at: %s\n", new Date());
-        IterableUtils.genIdxList(0, 5).stream()
+        IterableUtils.genIdxList(0, 5)
                 .map(i -> {
                     Callable<String> task = () -> {
 

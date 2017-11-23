@@ -57,7 +57,7 @@ public class ForkJoinPoolMergeResults {
         }
 
         private int count() {
-            return (int) IterableUtils.genIdxList(start, end).stream()
+            return (int) IterableUtils.genIdxList(start, end)
                     .filter(idx -> line[idx].equals(word))
                     .count();
 
@@ -88,7 +88,7 @@ public class ForkJoinPoolMergeResults {
         }
 
         private int processLines() {
-            List<LineTask> lineTasks = IterableUtils.genIdxList(start, end).stream()
+            List<LineTask> lineTasks = IterableUtils.genIdxList(start, end)
                     .map(idx -> new LineTask(document[idx], 0, document[idx].length, word))
                     .collect(Collectors.toList());
             invokeAll(lineTasks);

@@ -57,7 +57,7 @@ public class ForkJoinPoolCancel {
         }
 
         private int lookForNumnber() {
-            Optional<Integer> intMaybe = IterableUtils.genIdxList(start, end).stream()
+            Optional<Integer> intMaybe = IterableUtils.genIdxList(start, end)
                     .filter(i -> numbers[i] == number)
                     .findFirst();
             intMaybe.ifPresent(i -> {
