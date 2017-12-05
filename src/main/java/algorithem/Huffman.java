@@ -15,6 +15,7 @@ import static java.util.stream.Collectors.reducing;
 @Setter
 public class Huffman {
 
+    private static final int PADDING_TO = 7;
     private Map<Character, String> table;
     private Map<String, Character> rTable;
     private FrequencyNode root;
@@ -99,7 +100,7 @@ public class Huffman {
         List<Byte> list = IterableUtils.genIdxList(0, tokens.length)
                 .map(idx -> Byte.parseByte(tokens[idx], 2))
                 .collect(Collectors.toList());
-        list.add(0, (byte) (7 - tokens[tokens.length - 1].length()));  //tail padding
+        list.add(0, (byte) (PADDING_TO - tokens[tokens.length - 1].length()));  //tail padding
         return list;
     }
 
@@ -114,11 +115,11 @@ public class Huffman {
         bytes.remove(0);
         String byteStr = bytes.stream()
                 .map(b -> Integer.toString(b, 2))
-                .map(s -> Strings.padStart(s, 7, '0'))
+                .map(s -> Strings.padStart(s, PADDING_TO, '0'))
                 .reduce(String::concat)
                 .orElse("");
-        byteStr = byteStr.substring(0, 7 * bytes.size() - 7)
-                + byteStr.substring(7 * bytes.size() - 7 + tailPadding, byteStr.length());
+        byteStr = byteStr.substring(0, PADDING_TO * bytes.size() - PADDING_TO)
+                + byteStr.substring(PADDING_TO * bytes.size() - PADDING_TO + tailPadding, byteStr.length());
 
         String token = "";
         String ret = "";
