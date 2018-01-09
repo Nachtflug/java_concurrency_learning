@@ -1,16 +1,16 @@
 package nio.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
-import java.util.Date;
-
-public class NettyServer {
+public class MsgpackServer {
 
     public void bind(int port) throws InterruptedException {
         EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -20,7 +20,8 @@ public class NettyServer {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .option(ChannelOption.SO_BACKLOG, 1024)
+                    .option(ChannelOption.SO_BACKLOG, 100)
+                    .handler(new LoggingHandler(LogLevel.INFO))
                     .childHandler(new ChildChannelHandle());
             ChannelFuture f = b.bind(port).sync();   // wait for binding port
             f.channel().closeFuture().sync();        // wait for serverSocketChannel to close
@@ -34,6 +35,12 @@ public class NettyServer {
 
         @Override
         protected void initChannel(SocketChannel socketChannel) throws Exception {
+            socketChannel.pipeline().addLast("frameDecoder",
+                    new LengthFieldBasedFrameDecoder(65535, 0, 2, 0, 2));
+            socketChannel.pipeline().addLast("msgpack decoder", new MsgpackDecoder());
+            socketChannel.pipeline().addLast("frameEncoder",
+                    new LengthFieldPrepender(2)); // 2 byte -> 2x8 bits -> 0 ~ 65535
+            socketChannel.pipeline().addLast("msgpack encoder", new MsgpackEncoder());
             socketChannel.pipeline().addLast(new TimeServerHandler());
         }
     }
@@ -42,33 +49,23 @@ public class NettyServer {
 
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-            ByteBuf buf = (ByteBuf) msg;
-            byte[] bytes = new byte[buf.readableBytes()];
-            buf.readBytes(bytes);
-            String body = new String(bytes, "UTF-8");
-            System.out.println("received order: " + body);
-            String ret = "q".equalsIgnoreCase(body) ? new Date().toString() : "bad request.";
-            ByteBuf writeBuffer = Unpooled.copiedBuffer(ret.getBytes());
-            ctx.write(writeBuffer);
-            super.channelRead(ctx, msg);
-
+            System.out.println("Server received: " + msg);
+            ctx.write(msg);
         }
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-            super.exceptionCaught(ctx, cause);
             ctx.close();
         }
 
         @Override
         public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-            super.channelReadComplete(ctx);
-            ctx.flush();    // to avoid frequent write to SocketChannel, ctx reserved a buffer area,
-                            // write() will save the buf to buffer area and here need flush to the channel.
+            ctx.flush();
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
-        new NettyServer().bind(7890);
+        new MsgpackServer().bind(8901);
     }
+
 }
